@@ -170,6 +170,62 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
         oneDescription: [t("creative.one_desc.line_1"), t("creative.one_desc.line_2")],
         inverted: false,
       };
+    case "harmful_to_animals":
+      return {
+        zeroText: t("harmful_to_animals.zero_text"),
+        zeroDescription: [],
+        oneText: t("harmful_to_animals.one_text"),
+        oneDescription: [t("harmful_to_animals.one_desc")],
+        inverted: true,
+      };
+    case "animal_effect":
+      return {
+        zeroText: t("animal_effect.zero"),
+        zeroDescription: [],
+        oneText: t("animal_effect.one"),
+        oneDescription: [t("animal_effect.one_desc")],
+        inverted: false,
+      };
+    case "cultural_inclusion":
+      return {
+        zeroText: t("cultural_inclusion.zero"),
+        zeroDescription: [],
+        oneText: t("cultural_inclusion.one"),
+        oneDescription: [t("cultural_inclusion.one_desc")],
+        inverted: false,
+      };
+    case "emotional_effect":
+      return {
+        zeroText: t("emotional_effect.zero"),
+        zeroDescription: [],
+        oneText: t("emotional_effect.one"),
+        oneDescription: [t("emotional_effect.one_desc")],
+        inverted: false,
+      };
+    case "factuality":
+      return {
+        zeroText: t("factuality.zero"),
+        zeroDescription: [],
+        oneText: t("factuality.one"),
+        oneDescription: [t("factuality.one_desc")],
+        inverted: false,
+      };
+    case "influence":
+      return {
+        zeroText: t("influence.zero"),
+        zeroDescription: [],
+        oneText: t("influence.one"),
+        oneDescription: [t("influence.one_desc")],
+        inverted: false,
+      };
+    case "logical":
+      return {
+        zeroText: t("logical.zero"),
+        zeroDescription: [],
+        oneText: t("logical.one"),
+        oneDescription: [t("logical.one_desc")],
+        inverted: false,
+      };
     default:
       return {
         zeroText: `!${label}`,
@@ -225,7 +281,7 @@ export const LabelLikertGroup = ({ labelIDs, onChange, isEditable = true }: Labe
                 />
               </GridItem>
               <GridItem>
-                <Text as="div" display="flex" alignItems="center" justifyContent="end">
+                <Text as="div" display="flex" alignItems="center" justifyContent="end" textAlign="end">
                   {textB}
                   {descriptionB.length > 0 ? <Explain explanation={descriptionB} /> : null}
                 </Text>

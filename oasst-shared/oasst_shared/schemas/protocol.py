@@ -396,6 +396,7 @@ class TextLabel(str, enum.Enum):
     # yes/no questions
     spam = "spam", LabelWidget.yes_no, "Seems to be intentionally low-quality or irrelevant"
     fails_task = "fails_task", LabelWidget.yes_no, "Fails to follow the correct instruction / task"
+    harmful_to_animals = "harmful_to_animals", LabelWidget.yes_no, "Is this content harmful to animals?"
 
     # flags
     lang_mismatch = (
@@ -416,6 +417,13 @@ class TextLabel(str, enum.Enum):
     sexual_content = "sexual_content", LabelWidget.flag, "Contains sexual content"
     moral_judgement = "moral_judgement", LabelWidget.flag, "Expresses moral judgement"
     political_content = "political_content", LabelWidget.flag, "Expresses political views"
+    animal_consumption = "animal_consumption", LabelWidget.flag, "Encourages consumption of animal products"
+    animal_exploitation = "animal_exploitation", LabelWidget.flag, "Justifies animal exploitation"
+    animal_misinformation = "animal_misinformation", LabelWidget.flag, "Spreads misinformation about animals"
+    animal_sentience = "animal_sentience", LabelWidget.flag, "Denies animal sentience or intelligence"
+    human_superiority = "human_superiority", LabelWidget.flag, "Claims human superiority over animals"
+    mocks_advocacy = "mocks_advocacy", LabelWidget.flag, "Mocks animal advocacy efforts"
+    speciesist_language = "speciesist_language", LabelWidget.flag, "Contains speciesist language"
 
     # likert
     quality = "quality", LabelWidget.likert, "Overall subjective quality rating of the message"
@@ -424,6 +432,12 @@ class TextLabel(str, enum.Enum):
     helpfulness = "helpfulness", LabelWidget.likert, "Helpfulness of the message"
     creativity = "creativity", LabelWidget.likert, "Creativity"
     violence = "violence", LabelWidget.likert, "Violence/abuse/terrorism/self-harm"
+    animal_effect = "animal_effect", LabelWidget.likert, "How good is the content for animal welfare overall"
+    cultural_inclusion = "cultural_inclusion", LabelWidget.likert, "How culturally inclusive is the content"
+    emotional_effect = "emotional_effect", LabelWidget.likert, "How emotionally impactful is the content"
+    factuality = "factuality", LabelWidget.likert, "How factually correct is the content"
+    influence = "influence", LabelWidget.likert, "How likely is the content to influence behavior"
+    logical = "logical", LabelWidget.likert, "How logical is the content"
 
 
 class TextLabels(Interaction):

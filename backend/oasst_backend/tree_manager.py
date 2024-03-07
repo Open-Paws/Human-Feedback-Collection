@@ -1026,7 +1026,7 @@ class TreeManager:
     def _calculate_acceptance(self, labels: list[TextLabels]):
         # calculate acceptance based on lang_mismatch & spam label
         lang_mismatch = np.mean([(l.labels.get(protocol_schema.TextLabel.lang_mismatch) or 0) for l in labels])
-        spam = np.mean([l.labels[protocol_schema.TextLabel.spam] for l in labels])
+        spam = np.mean([l.labels.get(protocol_schema.TextLabel.spam) or 0 for l in labels])
         acceptance_score = 1 - (spam + lang_mismatch)
         logger.debug(f"{acceptance_score=} ({spam=}, {lang_mismatch=})")
         return acceptance_score
