@@ -41,6 +41,7 @@
   "harmful_to_animals.one_text": "Yes",
   "harmful_to_animals.one_desc": "Content promotes mistreatment, exploitation, or consumption of animals.",
   "harmful_to_animals.zero_text": "No",
+  "harmful_to_animals_explain": "Explain why this content is harmful or helpful to animals. Try to include as much detail as you can about the outcomes this content is likely to lead to and what their effect on animals could be. Try to explain your rationale as clearly and simply as possible.",
   "harmless": "Harmless",
   "hate_speech": "Hate Speech",
   "hate_speech.explanation": "Content is abusive or threatening and expresses prejudice against a protected characteristic. Prejudice refers to preconceived views not based on reason. Protected characteristics include gender, ethnicity, religion, sexual orientation, and similar characteristics.",

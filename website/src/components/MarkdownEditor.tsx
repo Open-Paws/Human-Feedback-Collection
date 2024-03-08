@@ -69,7 +69,14 @@ const rtlSx: BoxProps["sx"] = {
   },
 };
 
-export const MarkDownEditor = (props: { value: string; onChange: (value: string) => void; placeholder?: string }) => {
+interface MarkDownEditorProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string,
+  maxLength?: number,
+}
+
+export const MarkDownEditor = (props: MarkDownEditorProps) => {
   const { t, i18n } = useTranslation("tasks");
   const dir = i18n.dir();
 

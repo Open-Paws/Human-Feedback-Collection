@@ -1,13 +1,17 @@
-import { Box, useBoolean, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, VStack, useBoolean, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import { useEffect, useState } from "react";
 import { LabelInputGroup } from "src/components/Messages/LabelInputGroup";
 import { MessageConversation } from "src/components/Messages/MessageConversation";
+import { TrackedTextarea } from "src/components/Survey/TrackedTextarea";
 import { TwoColumnsWithCards } from "src/components/Survey/TwoColumnsWithCards";
 import { TaskSurveyProps } from "src/components/Tasks/Task";
 import { TaskHeader } from "src/components/Tasks/TaskHeader";
+import { getTypeSafei18nKey } from "src/lib/i18n";
 import { LabelTaskReply } from "src/types/TaskResponses";
 import { LabelTaskType } from "src/types/Tasks";
+
+const MAX_OPEN_RESPONSE_LENGTH = 10000; // in characters
 
 const isRequired = (labelName: string, requiredLabels?: string[]) => {
   return requiredLabels ? requiredLabels.includes(labelName) : false;
@@ -22,6 +26,7 @@ export const LabelTask = ({
 }: TaskSurveyProps<LabelTaskType, LabelTaskReply>) => {
   const { t } = useTranslation("labelling");
   const [values, setValues] = useState<number[]>(new Array(task.labels.length).fill(null));
+  const [openResponseText, setOpenResponseText] = useState("");
   const [userInputMade, setUserInputMade] = useBoolean(false);
 
   // Initial setup to run when the task changes
@@ -33,19 +38,24 @@ export const LabelTask = ({
 
   // Update the reply and validity when the values change
   useEffect(() => {
+    const requiresOpenResponse = !!task.open_response_instruction;
     onReplyChanged({
-      text: "unused?",
+      text: requiresOpenResponse ? openResponseText : "unused?",
       labels: Object.fromEntries(task.labels.map(({ name }, idx) => [name, values[idx] || 0])),
       message_id: task.message_id,
     });
+
+    const labelsMissing = task.labels.some(({ name }, idx) => values[idx] === null && isRequired(name, task.mandatory_labels));
+    const openResponseMissing = requiresOpenResponse && openResponseText.length === 0;
+    const openResponseLengthExceeded = openResponseText.length > MAX_OPEN_RESPONSE_LENGTH;
     onValidityChanged(
-      task.labels.some(({ name }, idx) => values[idx] === null && isRequired(name, task.mandatory_labels))
+      labelsMissing || openResponseMissing || openResponseLengthExceeded
         ? "INVALID"
         : userInputMade
         ? "VALID"
         : "DEFAULT"
     );
-  }, [task, values, onReplyChanged, userInputMade, onValidityChanged]);
+  }, [task, values, openResponseText, onReplyChanged, userInputMade, onValidityChanged]);
 
   const cardColor = useColorModeValue("gray.50", "gray.800");
   const isSpamTask = task.mode === "simple" && task.valid_labels.length === 1 && task.valid_labels[0] === "spam";
@@ -60,6 +70,7 @@ export const LabelTask = ({
             <MessageConversation messages={task.conversation.messages} highlightLastMessage />
           </Box>
         </>
+        <>
         <LabelInputGroup
           labels={task.labels}
           values={values}
@@ -76,6 +87,27 @@ export const LabelTask = ({
             setUserInputMade.on();
           }}
         />
+        {task.open_response_instruction && (
+          <VStack alignItems="left" mt={[6]}>
+            <Text>{t(getTypeSafei18nKey(task.open_response_instruction))}</Text>
+            <TrackedTextarea
+              onTextChange={t => {
+                setUserInputMade.on();
+                setOpenResponseText(t);
+              }}  
+              text={openResponseText}
+              thresholds={{ 
+                /** these are in words */
+                low: 10,
+                medium: 50,
+                goal: 150,
+                /** this is in characters */
+                max: MAX_OPEN_RESPONSE_LENGTH
+              }}
+            />
+          </VStack>
+        )}
+        </>
       </TwoColumnsWithCards>
     </div>
   );

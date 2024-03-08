@@ -315,6 +315,7 @@ class LabelAssistantReplyTask(LabelConversationReplyTask):
     """A task to label an assistant reply to a conversation."""
 
     type: Literal["label_assistant_reply"] = "label_assistant_reply"
+    open_response_instruction: str | None
 
 
 class TaskDone(Task):
@@ -380,6 +381,7 @@ class LabelWidget(str, enum.Enum):
     yes_no = "yes_no"
     flag = "flag"
     likert = "likert"
+    open_response = "open_response"
 
 
 class TextLabel(str, enum.Enum):
@@ -438,6 +440,9 @@ class TextLabel(str, enum.Enum):
     factuality = "factuality", LabelWidget.likert, "How factually correct is the content"
     influence = "influence", LabelWidget.likert, "How likely is the content to influence behavior"
     logical = "logical", LabelWidget.likert, "How logical is the content"
+
+    # open_response
+    harmful_to_animals_explain = "harmful_to_animals_explain", LabelWidget.open_response, "Explain how this content relates to animal welfare"
 
 
 class TextLabels(Interaction):

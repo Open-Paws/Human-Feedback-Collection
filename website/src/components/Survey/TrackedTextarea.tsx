@@ -13,9 +13,12 @@ import { MarkDownEditor } from "../MarkdownEditor";
 interface TrackedTextboxProps {
   text: string;
   thresholds: {
+    /** These are word counts */
     low: number;
     medium: number;
     goal: number;
+    /** This is character counts */
+    max?: number;
   };
   textareaProps?: TextareaProps & TextareaAutosizeProps;
   onTextChange: (value: string) => void;
@@ -57,6 +60,7 @@ export const TrackedTextarea = (props: TrackedTextboxProps) => {
           value={props.text}
           onChange={props.onTextChange}
           placeholder={props.textareaProps?.placeholder}
+          maxLength={props.thresholds.max}
         />
         <div
           style={{

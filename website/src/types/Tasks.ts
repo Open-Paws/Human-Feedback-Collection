@@ -57,6 +57,7 @@ export interface BaseLabelTask extends BaseTask {
   disposition: "spam" | "quality";
   mode: "simple" | "full";
   mandatory_labels?: string[];
+  open_response_instruction?: string;
 }
 
 export interface LabelAssistantReplyTask extends BaseLabelTask {

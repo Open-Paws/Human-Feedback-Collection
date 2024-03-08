@@ -109,6 +109,8 @@ class TreeManagerConfiguration(BaseModel):
         TextLabel.emotional_effect,
         TextLabel.logical,
         TextLabel.cultural_inclusion,
+        # open response
+        TextLabel.harmful_to_animals_explain
     ]
 
     labels_prompter_reply: list[TextLabel] = [
