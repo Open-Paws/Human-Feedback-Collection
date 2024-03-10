@@ -468,6 +468,12 @@ class TextLabels(Interaction):
                 raise ValueError(f"Label values must be between 0 and 1, got {value} for {key}.")
         return v
 
+    @pydantic.validator("text")
+    def check_text_length(cls, v):
+        max_length = 10000
+        if len(v) > max_length:
+            raise ValueError(f"Text length {len(v)} exceeds maximum of {max_length}.")
+        return v
 
 AnyInteraction = Union[
     TextReplyToMessage,
