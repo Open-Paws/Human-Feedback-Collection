@@ -92,19 +92,25 @@ class TreeManagerConfiguration(BaseModel):
     ]
 
     labels_assistant_reply: list[TextLabel] = [
-        TextLabel.spam,
-        TextLabel.lang_mismatch,
-        TextLabel.fails_task,
-        TextLabel.quality,
-        TextLabel.helpfulness,
-        TextLabel.creativity,
-        TextLabel.humor,
-        TextLabel.toxicity,
-        TextLabel.violence,
-        TextLabel.not_appropriate,
-        TextLabel.pii,
-        TextLabel.hate_speech,
-        TextLabel.sexual_content,
+        # yes/no
+        TextLabel.harmful_to_animals,
+        # labels
+        TextLabel.animal_consumption,
+        TextLabel.animal_exploitation,
+        TextLabel.animal_misinformation,
+        TextLabel.animal_sentience,
+        TextLabel.human_superiority,
+        TextLabel.mocks_advocacy,
+        TextLabel.speciesist_language,
+        # likert
+        TextLabel.animal_effect,
+        TextLabel.influence,
+        TextLabel.factuality,
+        TextLabel.emotional_effect,
+        TextLabel.logical,
+        TextLabel.cultural_inclusion,
+        # open response
+        TextLabel.harmful_to_animals_explain
     ]
 
     labels_prompter_reply: list[TextLabel] = [
@@ -124,7 +130,7 @@ class TreeManagerConfiguration(BaseModel):
     mandatory_labels_initial_prompt: Optional[list[TextLabel]] = [TextLabel.spam]
     """Mandatory labels in text-labeling tasks for initial prompts."""
 
-    mandatory_labels_assistant_reply: Optional[list[TextLabel]] = [TextLabel.spam]
+    mandatory_labels_assistant_reply: Optional[list[TextLabel]] = [TextLabel.harmful_to_animals]
     """Mandatory labels in text-labeling tasks for assistant replies."""
 
     mandatory_labels_prompter_reply: Optional[list[TextLabel]] = [TextLabel.spam]

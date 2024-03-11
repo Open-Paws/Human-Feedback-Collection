@@ -578,6 +578,11 @@ class TreeManager:
 
                     if message.role == "assistant":
                         valid_labels = self.cfg.labels_assistant_reply
+                        open_response_instruction = next(
+                            (x for x in valid_labels if x.widget == protocol_schema.LabelWidget.open_response),
+                            None)
+                        valid_labels = [x for x in valid_labels if x.widget != protocol_schema.LabelWidget.open_response]
+
                         if (
                             desired_task_type == protocol_schema.TaskRequestType.random
                             and random.random() > self.cfg.p_full_labeling_review_reply_assistant
@@ -600,6 +605,7 @@ class TreeManager:
                             mode=label_mode,
                             disposition=label_disposition,
                             labels=self._get_label_descriptions(valid_labels),
+                            open_response_instruction=open_response_instruction,
                         )
                     else:
                         valid_labels = self.cfg.labels_prompter_reply
@@ -1026,7 +1032,7 @@ class TreeManager:
     def _calculate_acceptance(self, labels: list[TextLabels]):
         # calculate acceptance based on lang_mismatch & spam label
         lang_mismatch = np.mean([(l.labels.get(protocol_schema.TextLabel.lang_mismatch) or 0) for l in labels])
-        spam = np.mean([l.labels[protocol_schema.TextLabel.spam] for l in labels])
+        spam = np.mean([l.labels.get(protocol_schema.TextLabel.spam) or 0 for l in labels])
         acceptance_score = 1 - (spam + lang_mismatch)
         logger.debug(f"{acceptance_score=} ({spam=}, {lang_mismatch=})")
         return acceptance_score
