@@ -7,6 +7,7 @@ export { getStaticProps } from "src/lib/defaultServerSideProps";
 import { Discord, Google } from "@icons-pack/react-simple-icons";
 import { Pencil } from "lucide-react";
 import { useTranslation } from "next-i18next";
+import { UserProfile } from "src/components/Account/UserProfile";
 import { UserStats } from "src/components/Account/UserStats";
 import { XPBar } from "src/components/Account/XPBar";
 import { SurveyCard } from "src/components/Survey/SurveyCard";
@@ -77,6 +78,7 @@ export default function Account() {
             <Divider my={4} />
             <XPBar />
           </SurveyCard>
+          <UserProfile />
           <UserStats stats={stats} />
           <SurveyCard className="w-full" color="red">
             <Link href="/account/delete">{t("account:delete_account")}</Link>
