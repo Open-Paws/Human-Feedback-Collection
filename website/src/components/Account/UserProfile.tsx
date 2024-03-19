@@ -242,7 +242,7 @@ export const UserProfile = () => {
 
       <Box marginBottom={5}>
         <Text as="b" fontSize="xl">{t(getTypeSafei18nKey("role_question"))}</Text>
-        <CheckboxGroup value={roles} onChange={r => setRoles(r)}>
+        <CheckboxGroup value={roles} onChange={r => setRoles(r.map(r => r.toString()))}>
           <Stack marginTop={2}>
             {roleOptions.map(o =>
               <Flex>
@@ -273,8 +273,7 @@ export const UserProfile = () => {
             labelIDs={advocacyApproachOptions}
             onChange={(v) => {
               setAdvocacyApproach(v)
-            }}>
-          </LabelLikertGroup>
+            }} />
         </Stack>
       </Box>
 
