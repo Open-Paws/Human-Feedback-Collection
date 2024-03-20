@@ -102,6 +102,7 @@ class TreeManagerConfiguration(BaseModel):
         TextLabel.human_superiority,
         TextLabel.mocks_advocacy,
         TextLabel.speciesist_language,
+        TextLabel.animal_cruelty, 
         # likert
         TextLabel.animal_effect,
         TextLabel.influence,

@@ -426,6 +426,7 @@ class TextLabel(str, enum.Enum):
     human_superiority = "human_superiority", LabelWidget.flag, "Claims human superiority over animals"
     mocks_advocacy = "mocks_advocacy", LabelWidget.flag, "Mocks animal advocacy efforts"
     speciesist_language = "speciesist_language", LabelWidget.flag, "Contains speciesist language"
+    animal_cruelty = "animal_cruelty", LabelWidget.flag, "Condones animal cruelty"
 
     # likert
     quality = "quality", LabelWidget.likert, "Overall subjective quality rating of the message"
