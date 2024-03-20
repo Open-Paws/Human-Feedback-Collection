@@ -22,6 +22,7 @@ import { getTypeSafei18nKey } from "src/lib/i18n";
 
 export const MAX_OTHER_LENGTH = 100;
 
+const DEFAULT_ADVOCACY_OPTION = 0.5;
 const advocacyApproachOptions = [
   "advocacy_approach",
   "advocacy_focus",
@@ -31,18 +32,20 @@ const advocacyApproachOptions = [
   "advocacy_empiricism",
 ];
 
+const DEFAULT_ADVOCATE_OPTION = "true";
 const advocateOptions = [
   { label: "advocate_true", value: "true" },
   { label: "advocate_false", value: "false" },
   { label: "advocate_other", value: "other" },
 ];
 
+const DEFAULT_DIET_OPTION = "vegan";
 const dietOptions = [
-  { label: "diet_regular_meat_eater", value: "regular_meat_eater" },
-  { label: "diet_occasional_meat_eater", value: "occasional_meat_eater" },
-  { label: "diet_flexitarian", value: "flexitarian" },
-  { label: "diet_vegetarian", value: "vegetarian" },
   { label: "diet_vegan", value: "vegan" },
+  { label: "diet_vegetarian", value: "vegetarian" },
+  { label: "diet_flexitarian", value: "flexitarian" },
+  { label: "diet_occasional_meat_eater", value: "occasional_meat_eater" },
+  { label: "diet_regular_meat_eater", value: "regular_meat_eater" },
   { label: "diet_other", value: "other" },
 ];
 
@@ -112,12 +115,13 @@ export const UserProfile = () => {
   const toast = useToast();
   const { t } = useTranslation("leaderboard");
 
-  const [advocacyApproach, setAdvocacyApproach] = useState(advocacyApproachOptions.map(a => null));
+  const [advocacyApproach, setAdvocacyApproach] = useState(
+    advocacyApproachOptions.map(a => DEFAULT_ADVOCACY_OPTION));
 
-  const [advocate, setAdvocate] = useState("");
+  const [advocate, setAdvocate] = useState(DEFAULT_ADVOCATE_OPTION);
   const [otherAdvocate, setOtherAdvocate] = useState("");
 
-  const [diet, setDiet] = useState("");
+  const [diet, setDiet] = useState(DEFAULT_DIET_OPTION);
   const [otherDiet, setOtherDiet] = useState("");
 
   const [roles, setRoles] = useState<string[]>([]);
@@ -163,13 +167,13 @@ export const UserProfile = () => {
     // Parse "diet" string
     parseOption(
       dietOptions,
-      defaultValues?.diet || "",
+      defaultValues?.diet || DEFAULT_DIET_OPTION,
       setDiet,
       setOtherDiet);
     // Parse "advocate" string
     parseOption(
       advocateOptions,
-      defaultValues?.advocate || "",
+      defaultValues?.advocate || DEFAULT_ADVOCATE_OPTION,
       setAdvocate,
       setOtherAdvocate);
 
@@ -183,15 +187,10 @@ export const UserProfile = () => {
     // Parse "advocacyApproach" values
     const data = defaultValues?.advocacyApproach || {};
     const advArray = advocacyApproachOptions.map(a => {
-      return a in data ? data[a] : null;
+      return a in data ? data[a] : DEFAULT_ADVOCACY_OPTION;
     });
     setAdvocacyApproach(advArray);
   }, [defaultValues])
-
-  const canSubmit = useCallback(() =>
-    advocacyApproach.findIndex(a => a === null) === -1
-    && advocate !== ""
-    && diet !== "", [advocacyApproach, advocate, diet]);
 
   const onSubmit = useCallback(() => {
     const otherRoleIndex = roles.indexOf("other");
@@ -278,7 +277,7 @@ export const UserProfile = () => {
       </Box>
 
       <Box>
-        <Button onClick={onSubmit} isDisabled={!canSubmit()} size="lg" variant="solid" colorScheme="blue">
+        <Button onClick={onSubmit} size="lg" variant="solid" colorScheme="blue">
           {t(getTypeSafei18nKey("profile_submit"))}
         </Button>
       </Box>
