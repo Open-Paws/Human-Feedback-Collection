@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem, Text, useColorModeValue } from "@chakra-ui/react";
 import { useTranslation } from "next-i18next";
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LikertButtons } from "src/components/Buttons/LikertButtons";
 import { Explain } from "src/components/Explain";
 
@@ -9,6 +9,7 @@ interface LabelInputGroupProps {
   labelIDs: Array<string>;
   onChange: (values: number[]) => unknown;
   isEditable?: boolean;
+  currentValues?: number[];
 }
 
 interface LabelInfo {
@@ -226,6 +227,55 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
         oneDescription: [t("logical.one_desc")],
         inverted: false,
       };
+    case "advocacy_approach":
+      return {
+        zeroText: t("advocacy_approach.zero"),
+        zeroDescription: [],
+        oneText: t("advocacy_approach.one"),
+        oneDescription: [],
+        inverted: false,
+      };
+    case "advocacy_diplomacy":
+      return {
+        zeroText: t("advocacy_diplomacy.zero"),
+        zeroDescription: [],
+        oneText: t("advocacy_diplomacy.one"),
+        oneDescription: [],
+        inverted: false,
+      };
+    case "advocacy_empiricism":
+      return {
+        zeroText: t("advocacy_empiricism.zero"),
+        zeroDescription: [],
+        oneText: t("advocacy_empiricism.one"),
+        oneDescription: [],
+        inverted: false,
+      };
+    case "advocacy_focus":
+      return {
+        zeroText: t("advocacy_focus.zero"),
+        zeroDescription: [],
+        oneText: t("advocacy_focus.one"),
+        oneDescription: [],
+        inverted: false,
+      };
+    case "advocacy_intersectionality":
+      return {
+        zeroText: t("advocacy_intersectionality.zero"),
+        zeroDescription: [],
+        oneText: t("advocacy_intersectionality.one"),
+        oneDescription: [],
+        inverted: false,
+      };
+    case "advocacy_rights":
+      return {
+        zeroText: t("advocacy_rights.zero"),
+        zeroDescription: [],
+        oneText: t("advocacy_rights.one"),
+        oneDescription: [],
+        inverted: false,
+      };
+
     default:
       return {
         zeroText: `!${label}`,
@@ -237,9 +287,15 @@ export const getLabelInfo = (label: string, t: (key: string) => string): LabelIn
   }
 };
 
-export const LabelLikertGroup = ({ labelIDs, onChange, isEditable = true }: LabelInputGroupProps) => {
+export const LabelLikertGroup = ({ labelIDs, onChange, isEditable = true, currentValues = undefined }: LabelInputGroupProps) => {
   const { t } = useTranslation("labelling");
   const [labelValues, setLabelValues] = useState<number[]>(Array.from({ length: labelIDs.length }).map(() => null));
+
+  useEffect(() => {
+    if (currentValues) {
+      setLabelValues(currentValues);
+    }
+  }, [currentValues]);
 
   const cardColor = useColorModeValue("gray.50", "gray.800");
 
@@ -269,6 +325,7 @@ export const LabelLikertGroup = ({ labelIDs, onChange, isEditable = true }: Labe
               </Text>
               <GridItem colSpan={{ base: 2, sm: 1 }} gridColumnStart={{ base: 1, sm: 2 }} gridRow={{ base: 2, sm: 1 }}>
                 <LikertButtons
+                  currentValue={currentValues && currentValues[idx]}
                   isDisabled={!isEditable}
                   count={5}
                   data-cy="label-options"

@@ -36,15 +36,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  isNew         Boolean   @default(true)
-  role          String    @default("general")
-  paperackYes   Boolean   @default(false)
-  paperackName  String    @default("")
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  isNew          Boolean   @default(true)
+  role           String    @default("general")
+  paperackYes    Boolean   @default(false)
+  paperackName   String    @default("")
+  profileContent String    @default("")
 
   accounts Account[]
   sessions Session[]
