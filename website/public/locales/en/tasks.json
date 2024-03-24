@@ -14,11 +14,11 @@
     "desc": "Help us improve Open Assistant by starting a random task."
   },
   "create_initial_prompt": {
-    "label": "Create Initial Prompts",
-    "desc": "Write initial prompts to help Open Assistant to try replying to diverse messages. (enter into lottery)",
-    "overview": "Create an initial message to send to the assistant",
-    "instruction": "Provide the initial prompts",
-    "response_placeholder": "Write your prompt here...",
+    "label": "Request a Document",
+    "desc": "Specify a different type of document that we should find and evaluate.",
+    "overview": "Specify a type of document that we should find and evaluate.",
+    "instruction": "Describe briefly a kind of document (webpage, blog post, video, article, etc..) that relates to animals or animal rights.",
+    "response_placeholder": "Write your document type here...",
     "shotcut_tip": "Tip: You can use a keyboard shortcut to Review and Submit responses:"
   },
   "reply_as_user": {
