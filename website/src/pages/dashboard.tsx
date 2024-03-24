@@ -6,7 +6,7 @@ import { useEffect, useMemo } from "react";
 import { LeaderboardWidget, TaskOption, WelcomeCard } from "src/components/Dashboard";
 import { DashboardLayout } from "src/components/Layout";
 import { get } from "src/lib/api";
-import { AvailableTasks, TaskCategory } from "src/types/Task";
+import { AvailableTasks, TaskCategory, TaskType } from "src/types/Task";
 export { getDefaultServerSideProps as getStaticProps } from "src/lib/defaultServerSideProps";
 import Link from "next/link";
 import { XPBar } from "src/components/Account/XPBar";
@@ -99,5 +99,7 @@ export default Dashboard;
 const filterAvailableTasks = (availableTasks: Partial<AvailableTasks>) =>
   Object.entries(availableTasks)
     .filter(([, count]) => count > 0)
+    .filter(([taskType]) => taskType !== TaskType.prompter_reply)
+    .filter(([taskType]) => taskType !== TaskType.rank_assistant_replies)
     .sort((a, b) => b[1] - a[1])
     .map(([taskType, count]) => ({ taskType, count })) as TaskCategoryItem[];
