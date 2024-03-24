@@ -1,0 +1,839 @@
+{
+  "classes": [
+    {
+      "class": "Document",
+      "description": "A generic class for storing all types of content (e.g. research papers, blog posts, social media messages, podcast episodes, books, movies, videos, multipart series)",
+      "vectorizer": "text2vec",
+      "properties": [
+        {
+          "name": "publicationDate",
+          "description": "Initial publication date",
+          "dataType": ["date"]
+        },
+        {
+          "name": "title",
+          "description": "The main title or name of the document",
+          "dataType": ["text"]
+        },
+        {
+          "name": "author",
+          "description": "References to author(s)",
+          "dataType": ["Individual"]
+        },
+        {
+          "name": "keywords",
+          "description": "Keywords or tags",
+          "dataType": ["text[]"]
+        },
+        {
+          "name": "summary",
+          "description": "Text summarry, abstract, synopsis or other short descriptive text",
+          "dataType": ["text"]
+        },
+        {
+          "name": "subject",
+          "description": "Topical individuals, events, locations, concepts, interventions, outcomes, organizations or species",
+          "dataType": [
+            "Individual",
+            "Organization",
+            "Species",
+            "Event",
+            "Location",
+            "Concept",
+            "Intervention",
+            "Outcome"
+          ]
+        },
+        {
+          "name": "version",
+          "description": "Version name or number",
+          "dataType": ["text"]
+        },
+        {
+          "name": "otherVersion",
+          "description": "A cross reference to other versions of the document",
+          "dataType": ["Document"]
+        },
+        {
+          "name": "content",
+          "description": "The full content of the document. Can include text, images and multimedia",
+          "dataType": ["Written", "Image", "Multimedia"]
+        },
+        {
+          "name": "involvedOrganisation",
+          "description": "Organisation(s) involved in creating the document",
+          "dataType": ["Organisation"]
+        },
+        {
+          "name": "language",
+          "description": "The language(s) used in the text of this entry.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "metrics",
+          "description": "Content Performance",
+          "dataType": ["Metrics"]
+        }
+      ]
+    },
+
+    {
+      "class": "Written",
+      "description": "A class to store text elements of all kinds",
+      "vectorizer": "text2vec",
+      "properties": [
+        {
+          "name": "content",
+          "description": "The content of the text element.",
+          "dataType": ["text"]
+        },
+        {
+          "name": "language",
+          "description": "The language used in text elements of this record.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "parentDocument",
+          "description": "The document this text is part of",
+          "dataType": ["Document"]
+        },
+        {
+          "name": "metrics",
+          "description": "Content Performance",
+          "dataType": ["Metrics"]
+        }
+      ]
+    },
+
+    {
+      "class": "Image",
+      "description": "A class to store image elements",
+      "vectorizer": "multi2vec-clip",
+      "moduleConfig": {
+        "multi2vec-clip": {
+          "textFields": ["altText"],
+          "imageFields": ["imageData"]
+        }
+      },
+      "properties": [
+        {
+          "name": "url",
+          "description": "The URL where the image is located",
+          "dataType": ["text"]
+        },
+        {
+          "name": "imageData",
+          "dataType": ["blob"]
+        },
+        {
+          "name": "altText",
+          "description": "The alternative text for the image",
+          "dataType": ["text"]
+        },
+
+        {
+          "name": "language",
+          "description": "The language used in text elements of this record.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "ocrText",
+          "description": "Text contained within the image.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "parentDocument",
+          "description": "The document this image is part of",
+          "dataType": ["Document"]
+        },
+        {
+          "name": "metrics",
+          "description": "Content Performance",
+          "dataType": ["Metrics"]
+        }
+      ]
+    },
+
+    {
+      "class": "Multimedia",
+      "description": "A class for podcasts, video, image-caption pairs and audio.",
+      "vectorizer": "multi2vec-bind",
+      "moduleConfig": {
+        "multi2vec-bind": {
+          "textFields": [
+            "fileFormat",
+            "duration",
+            "relatedText",
+            "description",
+            "language"
+          ],
+          "imageFields": ["previewImage"],
+          "audioFields": ["audio"],
+          "videoFields": ["video"]
+        }
+      },
+      "properties": [
+        {
+          "name": "url",
+          "description": "The URL where the multimedia object is located",
+          "dataType": ["text"]
+        },
+        {
+          "name": "audio",
+          "dataType": ["blob"]
+        },
+        {
+          "name": "video",
+          "dataType": ["blob"]
+        },
+        {
+          "name": "fileFormat",
+          "description": "The file format of the linked file",
+          "dataType": ["text"]
+        },
+        {
+          "name": "duration",
+          "description": "The runtime in seconds, stored in floating point format",
+          "dataType": ["number"]
+        },
+        {
+          "name": "previewImage",
+          "description": "A reference to preview image(s)",
+          "dataType": ["Image"]
+        },
+        {
+          "name": "relatedText",
+          "description": "A reference to transcriptions, captions or translations",
+          "dataType": ["Written"]
+        },
+        {
+          "name": "description",
+          "description": "The description or title of the file",
+          "dataType": ["text"]
+        },
+
+        {
+          "name": "language",
+          "description": "The language used in text elements of this record.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "parentDocument",
+          "description": "The document this multimedia file is part of",
+          "dataType": ["Document"]
+        },
+        {
+          "name": "metrics",
+          "description": "Content Performance",
+          "dataType": ["Metrics"]
+        }
+      ]
+    },
+
+    {
+      "class": "Event",
+      "description": "Advocacy-related events and campaigns",
+      "vectorizer": "multi2vec",
+      "properties": [
+        {
+          "name": "event details",
+          "description": "The URL of the event (eg. Eventbrite)",
+          "dataType": ["text"]
+        },
+
+        {
+          "name": "language",
+          "description": "The language used in text elements of this record.",
+          "dataType": ["Language"]
+        },
+
+        {
+          "name": "date",
+          "description": "The date and time of the event",
+          "dataType": ["date"]
+        },
+
+        {
+          "name": "duration",
+          "description": "Duration of the event",
+          "dataType": ["number"]
+        },
+
+        {
+          "name": "location",
+          "description": "Event venue",
+          "dataType": ["Location"]
+        },
+
+        {
+          "name": "related content",
+          "description": "Any related content (eg. URLs to hosting group's website)",
+          "dataType": ["text[]"]
+        },
+
+        {
+          "name": "entities",
+          "description": "Groups or individuals involved in this event",
+          "dataType": ["Group", "Individual"]
+        },
+
+        {
+          "name": "parentDocument",
+          "description": "The document this event is part of",
+          "dataType": ["Document"]
+        },
+
+        {
+          "name": "concepts",
+          "description": "Concepts used or introduced in this event",
+          "dataType": ["Concept"]
+        }
+      ]
+    },
+
+    {
+      "class": "Group",
+      "description": "Entities like companies, nonprofits, advocacy groups etc",
+      "vectorizer": "multi2vec",
+      "properties": [
+        {
+          "name": "details",
+          "description": "Description of what this group does/is about",
+          "dataType": ["text"]
+        },
+        {
+          "name": "language",
+          "description": "The language used in text elements of this record.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "contact info",
+          "description": "Contact information of the group",
+          "dataType": ["text[]"]
+        },
+
+        {
+          "name": "urls",
+          "description": "URLs linked to the group",
+          "dataType": ["text"]
+        },
+
+        {
+          "name": "location",
+          "description": "The group's office locations",
+          "dataType": ["Location"]
+        },
+
+        {
+          "name": "affiliations",
+          "description": "Groups or individuals affiliated with this group",
+          "dataType": ["Group", "Individual"]
+        },
+
+        {
+          "name": "relatedDocument",
+          "description": "Documents that mention or discuss this group",
+          "dataType": ["Document"]
+        },
+
+        {
+          "name": "concepts",
+          "description": "Concepts used by this group",
+          "dataType": ["Concept"]
+        },
+        {
+          "name": "relatedEvent",
+          "description": "Events this group organized or participated in",
+          "dataType": ["Event"]
+        }
+      ]
+    },
+
+    {
+      "class": "Individual",
+      "description": "Highlights activists, authors, researchers, famous human and nonhuman animals, data workers providing feedback etc.",
+      "vectorizer": "multi2vec",
+      "properties": [
+        {
+          "name": "bio",
+          "description": "Text bio of the individual. May be generated from related documents.",
+          "dataType": ["text"]
+        },
+        {
+          "name": "language",
+          "description": "The language used in text elements of this record.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "role",
+          "description": "Role of the individual",
+          "dataType": ["text[]"]
+        },
+        {
+          "name": "species",
+          "description": "The species of the individual",
+          "dataType": ["Species"]
+        },
+        {
+          "name": "socialMedia",
+          "description": "Social media pages/accounts of the individual",
+          "dataType": ["text[]"]
+        },
+
+        {
+          "name": "website",
+          "description": "URLs linked to the individual",
+          "dataType": ["text[]"]
+        },
+
+        {
+          "name": "contributions",
+          "description": "Contributions of the individual",
+          "dataType": ["Document"]
+        },
+
+        {
+          "name": "affiliations",
+          "description": "Groups, individuals, events affiliated with this individual",
+          "dataType": ["Group, Individual, Event"]
+        },
+
+        {
+          "name": "relatedDocuments",
+          "description": "Documents that mention or discuss this individual",
+          "dataType": ["Document", "Multimedia"]
+        },
+
+        {
+          "name": "concepts",
+          "description": "Concepts used by this individual",
+          "dataType": ["Concept"]
+        },
+
+        {
+          "name": "rlhfData",
+          "description": "Data collected from RLHF individuals",
+          "dataType": ["object"],
+          "nestedProperties": [
+            {
+              "name": "feedback",
+              "dataType": ["Feedback"]
+            },
+
+            {
+              "name": "personaData",
+              "dataType": ["object"],
+              "nestedProperties": [
+                {
+                  "name": "currentLifestyleDiet",
+                  "description": "The individual's current lifestyle/diet",
+                  "dataType": ["text"]
+                },
+                {
+                  "name": "demographics",
+                  "description": "demographics (optional)",
+                  "dataType": ["object"],
+                  "nestedProperties": [
+                    {
+                      "name": "age",
+                      "description": "Age",
+                      "dataType": ["int"]
+                    },
+                    {
+                      "name": "gender",
+                      "description": "Gender",
+                      "dataType": ["text"]
+                    },
+                    {
+                      "name": "ethnicity",
+                      "description": "Ethnicity",
+                      "dataType": ["text"]
+                    },
+                    {
+                      "name": "country",
+                      "description": "Country",
+                      "dataType": ["text"]
+                    },
+                    {
+                      "name": "educationLevel",
+                      "description": "Education Level",
+                      "dataType": ["text"]
+                    },
+                    {
+                      "name": "incomeLevel",
+                      "description": "Income Level",
+                      "dataType": ["int[]"]
+                    },
+                    {
+                      "name": "incomeCurrency",
+                      "description": "Income Level Currency",
+                      "dataType": ["Currency"]
+                    },
+                    {
+                      "name": "politicalAffiliation",
+                      "description": "Political Affiliation",
+                      "dataType": ["text"]
+                    },
+                    {
+                      "name": "religiousAffiliation",
+                      "description": "Religious Affiliation",
+                      "dataType": ["text"]
+                    }
+                  ]
+                },
+                {
+                  "name": "psychographics",
+                  "description": "Psychographics (optional)",
+                  "dataType": ["text[]"]
+                },
+                {
+                  "name": "involvementInAnimalAdvocacy",
+                  "description": "The individual's involvement in animal advocacy",
+                  "dataType": ["object"],
+                  "nestedProperties": [
+                    {
+                      "name": "advocateForAnimals",
+                      "description": "Do you consider yourself an advocate for animals?",
+                      "dataType": ["text"]
+                    },
+                    {
+                      "name": "rolesInAnimalAdvocacy",
+                      "description": "What is your role(s) in animal advocacy? (select all that apply)",
+                      "dataType": ["text[]"]
+                    },
+                    {
+                      "name": "personalApproachRating",
+                      "description": "How would you rate your personal approach to animal advocacy?",
+                      "dataType": ["object"],
+                      "approachQuestions": [
+                        {
+                          "name": "abolitionistVsIncrementalistApproach",
+                          "description": "Abolitionist Approach <> Incrementalist Approach",
+                          "dataType": ["int"]
+                        },
+                        {
+                          "name": "institutionalVsIndividualFocus",
+                          "description": "Institutional Focus <> Individual Focus",
+                          "dataType": ["int"]
+                        },
+                        {
+                          "name": "intersectionalVsAnimalActivismFocus",
+                          "description": "Intersectional Approach To Activism <> Focused Solely on Animal Activism",
+                          "dataType": ["int"]
+                        },
+                        {
+                          "name": "welfareVsRightsFocus",
+                          "description": "Focus on Animal Welfare <> Focus on Animal Rights",
+                          "dataType": ["int"]
+                        },
+                        {
+                          "name": "confrontationalVsDiplomaticActivism",
+                          "description": "Confrontational Activism <> Diplomatic Activism",
+                          "dataType": ["int"]
+                        },
+                        {
+                          "name": "intuitiveVsEmpiricalEffectivenessJudgement",
+                          "description": "Intuitive Judgements on Effectiveness <> Empirical Judgements on Effectiveness",
+                          "dataType": ["int"]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "class": "Metrics",
+      "description": "Tracks content performance and engagement",
+      "vectorizer": "text2vec",
+      "properties": [
+        {
+          "name": "advertisingCampaign",
+          "description": "Indicates whether or not this metric has info on advertising costs",
+          "dataType": ["boolean"]
+        },
+        {
+          "name": "ctr",
+          "description": "The Click-Through Rate (CTR) is the percentage of people who click on your ad after viewing it. It is calculated by dividing the number of clicks by the number of ad impressions and multiplying it by 100.",
+          "dataType": ["number"]
+        },
+        {
+          "name": "cpc",
+          "description": "Cost Per Click (CPC): The cost per paid click. (total_cost / paid_click_count).",
+          "dataType": ["..."]
+        },
+
+        {
+          "name": "cpm",
+          "description": "Cost Per Mille (CPM): The cost per 1000 paid impressions. It represents how much it costs for an ad to be seen by 1000 people, ((total_cost / paid_impression_count) * 1000).",
+          "dataType": ["..."]
+        },
+        {
+          "name": "currency",
+          "description": "The currency used in the cost metrics",
+          "dataType": ["Currency"]
+        },
+        {
+          "name": "impressions",
+          "description": "The number of times content is displayed on someone's screen, regardless of engagement",
+          "dataType": ["int"]
+        },
+        {
+          "name": "reach",
+          "description": "The total number of unique users who have seen the content, similar to total_clicks/view_count",
+          "dataType": ["int"]
+        },
+        {
+          "name": "engagementRate",
+          "description": "The total number of engagements (likes/dislikes, comments, shares, actions) divided by the reach",
+          "dataType": ["number"]
+        },
+        {
+          "name": "comments",
+          "description": "The total number of comments on the content",
+          "dataType": ["int"]
+        },
+        {
+          "name": "shares",
+          "description": "The total number of times the content has been shared.",
+          "dataType": ["int"]
+        },
+        {
+          "name": "likes",
+          "description": "The total number of likes received on the content.",
+          "dataType": ["int"]
+        },
+        {
+          "name": "dislikes",
+          "description": "The total number of dislikes received on the content. YouTube Specific",
+          "dataType": ["int"]
+        },
+        {
+          "name": "averageViewDuration",
+          "description": "The average duration for which the content is viewed.",
+          "dataType": ["int"]
+        },
+        {
+          "name": "totalWatchTime",
+          "description": "The cumulative amount of time that viewers have spent watching the content.",
+          "dataType": ["int"]
+        },
+        {
+          "name": "queriedCount",
+          "description": "The number of times this content has shown up in a query.",
+          "dataType": ["int"]
+        },
+        {
+          "name": "parentContent",
+          "description": "Content Classes that mention or discuss this metric",
+          "dataType": ["Document", "Written", "Multimedia", "Image"]
+        }
+      ]
+    },
+
+    {
+      "class": "Concept",
+      "description": "Encapsulates ideas and ideologies",
+      "vectorizer": "text2vec",
+      "properties": [
+        {
+          "name": "definition",
+          "description": "Definition of the concept",
+          "dataType": ["text"]
+        },
+
+        {
+          "name": "related content",
+          "description": "Content discussing this concept",
+          "dataType": ["Multimedia, Written"]
+        },
+
+        {
+          "name": "associated entities",
+          "description": "Individuals or groups using this concept",
+          "dataType": ["Individual, Group"]
+        },
+
+        {
+          "name": "parentDocument",
+          "description": "Documents that mention or discuss this concept",
+          "dataType": ["Document"]
+        }
+      ]
+    },
+
+    {
+      "class": "Location",
+      "description": "Manages geographical data and locations",
+      "vectorizer": "multi2vec",
+      "properties": [
+        {
+          "name": "coordinates",
+          "description": "Longitude, latitude of the location",
+          "dataType": ["geoCoordinates"]
+        },
+        {
+          "name": "entities",
+          "description": "Groups and individuals linked to this location",
+          "dataType": ["Group, Individual"]
+        }
+      ]
+    },
+
+    {
+      "class": "Feedback",
+      "description": "All feedback fields collected during real life human feedback (RLHF)",
+      "vectorizer": "multi2vec",
+      "properties": [
+        {
+          "name": "individual",
+          "description": "individual giving this feedback",
+          "dataType": ["Individual"]
+        },
+        {
+          "name": "feedbackDocument",
+          "description": "Document this feedback is related to",
+          "dataType": ["Document"]
+        },
+        {
+          "name": "Is this content harmful to animals?",
+          "description": "Is this content harmful to animals?",
+          "dataType": ["boolean"]
+        },
+        {
+          "name": "*Why is this content harmful to animals?*",
+          "description": "Why is this content harmful to animals?",
+          "dataType": ["text[]"]
+        },
+        {
+          "name": "language",
+          "description": "The language(s) used in the text of this entry.",
+          "dataType": ["Language"]
+        },
+        {
+          "name": "rating_1",
+          "description": "Very bad for animals <> Very good for animals",
+          "dataType": ["int"]
+        },
+        {
+          "name": "rating_2",
+          "description": "Not Likely to Influence Behavior <> Highly Likely to Influence Behavior",
+          "dataType": ["int"]
+        },
+        {
+          "name": "rating_3",
+          "description": "Factually Inaccurate <> Factually Accurate",
+          "dataType": ["int"]
+        },
+        {
+          "name": "rating_4",
+          "description": "Not Emotionally Impactful <> Very Emotionally Impactful",
+          "dataType": ["int"]
+        },
+        {
+          "name": "rating_5",
+          "description": "Not Logical <> Very Logical",
+          "dataType": ["int"]
+        },
+        {
+          "name": "rating_6",
+          "description": "Culturally Insensitive <> Culturally Inclusive",
+          "dataType": ["int"]
+        },
+        {
+          "name": "why content is harmful/helpful",
+          "description": "Explain why this content is harmful or helpful to animals (open-ended)",
+          "dataType": ["text"]
+        }
+      ]
+    },
+
+    {
+      "class": "Language",
+      "description": "A language.",
+      "vectorizer": "text2vec",
+      "properties": [
+        {
+          "name": "code",
+          "description": "ISO 639-2 Code. https://en.wikipedia.org/wiki/ISO_639-2",
+          "dataType": ["text"]
+        }
+      ]
+    },
+
+    {
+      "class": "Currency",
+      "description": "A currency.",
+      "vectorizer": ["text2vec"],
+      "properties": [
+        {
+          "name": "code",
+          "description": "ISO 4217 currency code. https://en.wikipedia.org/wiki/ISO_4217",
+          "dataType": ["text"]
+        }
+      ]
+    },
+
+    {
+      "class": "Species",
+      "description": "A species.",
+      "vectorizer": ["text2vec"],
+      "properties": [
+        {
+          "name": "name",
+          "description": "The scientific name of a species. ie. Home sapiens, Bos taurus, Felix catus ",
+          "dataType": ["text"]
+        }
+      ]
+    },
+
+    {
+      "class": "DocumentType",
+      "description": "A type of Document, ie. book, research paper, news article, blog post, TV series, feature film.",
+      "vectorizer": ["text2vec"],
+      "properties": [
+        {
+          "name": "name",
+          "description": "The document type.",
+          "dataType": ["text"]
+        }
+      ]
+    },
+
+    {
+      "class": "Intervention",
+      "description": "An intervention.",
+      "vectorizer": ["text2vec"],
+      "properties": [
+        {
+          "name": "name",
+          "description": "The intervention name. Inclusive of https://animalcharityevaluators.org/research/methodology/menu-of-interventions/",
+          "dataType": ["text"]
+        },
+
+        {
+          "name": "expected outcomes",
+          "description": "Expected outcomes from the intervention",
+          "dataType": ["Outcomes"]
+        }
+      ]
+    },
+    {
+      "class": "Outcomes",
+      "description": "An intended outcome.",
+      "vectorizer": ["text2vec"],
+      "properties": [
+        {
+          "name": "name",
+          "description": "The outcome name. Inclusive of https://animalcharityevaluators.org/research/methodology/menu-of-outcomes/",
+          "dataType": ["text"]
+        }
+      ]
+    }
+  ]
+}

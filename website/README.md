@@ -43,7 +43,7 @@ To contribute to the website, make sure you have the following setup and install
 If you're doing active development we suggest the following workflow:
 
 1.  Open the terminal, navigate to the project root.
-1.  Run `docker compose --profile frontend-dev up --build --attach-dependencies`. You can optionally include `-d` to
+2.  Run `docker compose --profile frontend-dev up --build --attach-dependencies`. You can optionally include `-d` to
     detach and later track the logs if desired.
     - If you want to work on the chat api, you need to run the inference profile as well. Your new command would look
       like: `docker compose --profile frontend-dev --profile inference up --build --attach-dependencies`
