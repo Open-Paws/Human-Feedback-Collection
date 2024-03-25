@@ -71,9 +71,9 @@
     "overview": "Given the following discussion, provide labels for the final prompt."
   },
   "label_assistant_reply": {
-    "label": "Label Assistant Reply",
-    "desc": "Provide labels for a prompt.",
-    "overview": "Given the following discussion, provide labels for the final prompt."
+    "label": "Label Document",
+    "desc": "Provide labels for a document.",
+    "overview": "Evaluate the provided document on the following categories."
   },
   "classify_initial_prompt": {
     "label": "Classify Initial Prompt",
