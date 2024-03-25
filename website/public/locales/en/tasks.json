@@ -30,10 +30,10 @@
     "shotcut_tip": "Tip: You can use a keyboard shortcut to Review and Submit responses:"
   },
   "reply_as_assistant": {
-    "label": "Reply as Assistant",
-    "desc": "Help Open Assistant improve its responses to conversations with other users.",
-    "overview": "Given the following conversation, provide an adequate reply",
-    "response_placeholder": "Write your reply here...",
+    "label": "Reply with Document",
+    "desc": "Respond to user's query with a document.",
+    "overview": "Given the following request, provide a document (webpage, blog post, video, article, etc..). It should be at the very least, loosely relevant to the query.",
+    "response_placeholder": "Submit your document here...",
     "shotcut_tip": "Tip: You can use a keyboard shortcut to Review and Submit responses:"
   },
   "rank_user_replies": {
