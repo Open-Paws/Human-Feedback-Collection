@@ -30,10 +30,10 @@
     "shotcut_tip": "Tip: You can use a keyboard shortcut to Review and Submit responses:"
   },
   "reply_as_assistant": {
-    "label": "Reply as Assistant",
-    "desc": "Help Open Assistant improve its responses to conversations with other users.",
-    "overview": "Given the following conversation, provide an adequate reply",
-    "response_placeholder": "Write your reply here...",
+    "label": "Reply with Document",
+    "desc": "Respond to user's query with a document.",
+    "overview": "Given the following request, provide a document (webpage, blog post, video, article, etc..). It should be at the very least, loosely relevant to the query.",
+    "response_placeholder": "Submit your document here...",
     "shotcut_tip": "Tip: You can use a keyboard shortcut to Review and Submit responses:"
   },
   "rank_user_replies": {
@@ -71,9 +71,9 @@
     "overview": "Given the following discussion, provide labels for the final prompt."
   },
   "label_assistant_reply": {
-    "label": "Label Assistant Reply",
-    "desc": "Provide labels for a prompt.",
-    "overview": "Given the following discussion, provide labels for the final prompt."
+    "label": "Label Document",
+    "desc": "Provide labels for a document.",
+    "overview": "Evaluate the provided document on the following categories."
   },
   "classify_initial_prompt": {
     "label": "Classify Initial Prompt",
@@ -86,8 +86,8 @@
     "overview": "Read the following conversation and then answer the question about the last reply in the discussion."
   },
   "classify_assistant_reply": {
-    "label": "Classify Assistant Reply",
-    "desc": "Provide labels for a prompt.",
+    "label": "Classify Document",
+    "desc": "Provide labels for a document.",
     "overview": "Read the following conversation and then answer the question about the last reply in the discussion."
   },
   "submitted_as": "This will be submitted as {{submit_lang}}",
