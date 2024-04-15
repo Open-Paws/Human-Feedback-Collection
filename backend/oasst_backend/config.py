@@ -200,7 +200,7 @@ class Settings(BaseSettings):
 
     DEBUG_USE_SEED_DATA: bool = False
     DEBUG_USE_SEED_DATA_PATH: Optional[FilePath] = (
-        Path(__file__).parent.parent / "test_data/realistic/realistic_seed_data.json"
+        Path(__file__).parent.parent / "test_data/AR_document_request_seed_data.json"
     )
     DEBUG_ALLOW_SELF_LABELING: bool = False  # allow users to label their own messages
     DEBUG_ALLOW_SELF_RANKING: bool = False  # allow users to rank their own messages

@@ -22,3 +22,4 @@ sqlmodel==0.0.8
 tqdm>=4.64.1
 uuid7==0.1.0
 uvicorn==0.20.0
+openai==1.16.2
